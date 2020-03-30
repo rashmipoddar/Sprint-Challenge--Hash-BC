@@ -9,6 +9,8 @@ class LinkedPair:
         self.value = value
         self.next = None
 
+    def __repr__(self):
+        return(f'Node{self.key}, {self.value}, {self.next}')
 
 # '''
 # Resizing hash table
@@ -30,6 +32,9 @@ def hash(x, max):
 
 def hash_table_insert(hash_table, key, value):
     index = hash(key, len(hash_table.storage))
+    # print('Index for storing ', index)
+    # print('Key', key)
+    # print('value', value)
 
     current_pair = hash_table.storage[index]
     last_pair = None
@@ -44,7 +49,7 @@ def hash_table_insert(hash_table, key, value):
         new_pair = LinkedPair(key, value)
         new_pair.next = hash_table.storage[index]
         hash_table.storage[index] = new_pair
-
+    # print(hash_table.storage[index])
 
 def hash_table_remove(hash_table, key):
     index = hash(key, len(hash_table.storage))
@@ -63,6 +68,7 @@ def hash_table_remove(hash_table, key):
             hash_table.storage[index] = current_pair.next
         else:
             last_pair.next = current_pair.next
+    
 
 
 def hash_table_retrieve(hash_table, key):
@@ -85,8 +91,8 @@ def hash_table_resize(hash_table):
         current_pair = hash_table.storage[i]
         while current_pair is not None:
             hash_table_insert(new_hash_table,
-                              current_pair.key,
-                              current_pair.value)
+                            current_pair.key,
+                            current_pair.value)
             current_pair = current_pair.next
 
     return new_hash_table
